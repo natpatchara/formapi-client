@@ -42,7 +42,7 @@ with st.form(key='Upload image'):
     max_size = st.number_input("Max size:", value = -1)
     params = {"minBoxSize":min_size, "maxBoxSize":max_size}
 
-  uploaded_file = st.file_uploader("Choose a image:", type=['png','jpeg'])
+  uploaded_file = st.file_uploader("Choose a image:", type=['png','jpg'])
   submitted = st.form_submit_button('Submit')
 
 
