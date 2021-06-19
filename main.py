@@ -12,6 +12,7 @@ def send_base64(src,oper_type,params={}):
 
 def process_response(img,res):
   res = res.json()
+  img = img.copy()
   if(res['status'] == 'success'):
     coords = res['result'][0]['coords']
     for coord in coords:
