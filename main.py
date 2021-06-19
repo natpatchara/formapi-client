@@ -28,17 +28,30 @@ def process_response(img,res):
 
 st.title('Form api client')
 
-st.text('Hello world')
+operator = st.radio(label = "Choose operator type:", options = ("Radio","Checkbox"))
 
 with st.form(key='Upload image'):
-  uploaded_file = st.file_uploader("Choose a image", type=['png','jpeg'])
+  st.text("Please select parameter:")
+  if (operator == "Radio"):
+    min_radius = st.number_input("Min radius:", value = 20)
+    max_radius = st.number_input("Max radius:", value = 50)
+    params = {"minRadius":min_radius, "maxRadius":max_radius}
+
+  elif (operator == "Checkbox"):
+    min_size = st.number_input("Min size:", value = 25)
+    max_size = st.number_input("Max size:", value = -1)
+    params = {"minBoxSize":min_size, "maxBoxSize":max_size}
+
+  uploaded_file = st.file_uploader("Choose a image:", type=['png','jpeg'])
   submitted = st.form_submit_button('Submit')
+
+
 
 if (submitted):
   if uploaded_file is not None:
 
     src = uploaded_file.read()
-    res = send_base64(src,'Radio')
+    res = send_base64(src,'Radio',params)
 
     # Convert the file to an opencv image.
     file_bytes = np.asarray(bytearray(src), dtype=np.uint8)
