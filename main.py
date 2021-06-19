@@ -51,7 +51,7 @@ if (submitted):
   if uploaded_file is not None:
 
     src = uploaded_file.read()
-    res = send_base64(src,'Radio',params)
+    res = send_base64(src,operator,params)
 
     # Convert the file to an opencv image.
     file_bytes = np.asarray(bytearray(src), dtype=np.uint8)
