@@ -6,7 +6,7 @@ import numpy as np
 
 def send_base64(src,oper_type,params={}):
   url = 'https://box-detection-api.herokuapp.com/label'
-  encoded_string = base64.b64encode(src.read()).decode('utf-8')
+  encoded_string = base64.b64encode(src).decode('utf-8')
   test = {'image':[{"base64":encoded_string}],'op_type':oper_type,'params':params}
   return requests.post(url, json=test)
 
@@ -36,10 +36,11 @@ with st.form(key='Upload image'):
 if (submitted):
   if uploaded_file is not None:
 
-    res = send_base64(uploaded_file,'Radio')
+    src = uploaded_file.read()
+    res = send_base64(src,'Radio')
 
     # Convert the file to an opencv image.
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+    file_bytes = np.asarray(bytearray(src), dtype=np.uint8)
     image = cv2.imdecode(file_bytes, 1)
 
     # convert server response into JSON format.
