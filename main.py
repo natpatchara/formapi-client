@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 def send_base64(src,oper_type,params={}):
-  url = '/label'
+  url = 'https://box-detection-api.herokuapp.com/label'
   encoded_string = base64.b64encode(src.read()).decode('utf-8')
   test = {'image':[{"base64":encoded_string}],'op_type':oper_type,'params':params}
   return requests.post(url, json=test)
